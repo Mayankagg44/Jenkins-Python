@@ -18,6 +18,7 @@ pipeline {
         stage('Python Script') {
             when{
                 expression { params.CHOICE == 'Instance' }
+                branch 'main'
                 //environment name: 'NAME', value: 'database-1' 
                 }
             steps {
