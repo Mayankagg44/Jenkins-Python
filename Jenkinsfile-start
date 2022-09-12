@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment{
+        AWS_DEFAULT_REGION="us-east-1"
+    }
+    parameters{
+        choice(name: 'CHOICE', choices: ['Instance', 'Cluster', 'Both'], description: 'Pick something')
+    }
+    triggers {
+        cron('58 10 * * *')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                echo "Database Instance is: ${NAME}"
+            }
+        }
+        stage('Python Script') {
+            when{
+                expression { params.CHOICE == 'Instance' }
+                //environment name: 'NAME', value: 'database-1' 
+                }
+            steps {
+                withCredentials([aws(credentialsId: "760451896171", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'python3 script.py start ${NAME}'
+                }
+            }
+        }
+    }
+}
