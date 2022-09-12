@@ -12,17 +12,18 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                echo "Database Instance is: ${NAME}"
+                echo "Database Cluster is: ${CLUSTER_NAME}"
             }
         }
         stage('Python Script') {
             when{
-                expression { params.CHOICE == 'Instance' }
+                expression { params.CHOICE == 'Cluster' }
+                //branch 'main'
                 //environment name: 'NAME', value: 'database-1' 
                 }
             steps {
                 withCredentials([aws(credentialsId: "760451896171", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'python3 script.py stop ${NAME}'
+                    sh 'python3 cluster-boto3.py stop ${CLUSTER_NAME}'
                 }
             }
         }
