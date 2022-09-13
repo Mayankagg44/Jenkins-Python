@@ -33,7 +33,7 @@ def delete_global_inst():
         response = client.describe_db_instances(
             DBInstanceIdentifier=db
         )     
-        print(response)
+    print(response)
 #         for i in response['DBInstances']:
 #             if status.lower() =='delete':
 #                 if i['DBInstanceStatus'] == 'available':
