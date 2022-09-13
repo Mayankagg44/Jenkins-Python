@@ -2,11 +2,12 @@ import boto3
 import sys
 
 status = sys.argv[1]
-list_db= sys.argv[2]
+list_db = sys.argv[1]
+list_inst = sys.argv[1]
 client = boto3.client('rds')
 
-#Deleting RDS cluster
-def status_clusters_rds():
+#Remoing RDS Global cluster
+def global_clusters_rds():
     for db in list_db.split(","):
         response = client.describe_global_clusters(
             GlobalClusterIdentifier=db
@@ -25,15 +26,27 @@ def status_clusters_rds():
                 else :
                     print('Wrong status')
                     sys.exit(1)
-            # if status.lower() =='stop':
-            #     if i['Status'] == 'stopped' or i['Status'] == 'stopping':
-            #         print("Already stopped")
-            #         sys.exit(1)
-            #     elif i['Status'] == 'starting':
-            #         print('The DB cluster {0} is in starting mode...Kindly wait for few mins'.format(i['DBClusterIdentifier']))
-            #         sys.exit(1)
-            #     else:
-            #         client.delete_db_cluster(DBClusterIdentifier = i['DBClusterIdentifier'])
-            #         print('Deleting DB cluster {0}'.format(i['DBClusterIdentifier']))
+ 
+def delete_global_inst():
+    for db in list_inst.split(","):
+        response = client.describe_db_instances(
+            DBInstanceIdentifier=db
+        )     
+        for i in response['DBInstances']:
+            if status.lower() =='delete':
+                if i['DBInstanceStatus'] == 'available':
+                    client.delete_db_instance(
+                        DBInstanceIdentifier=i['DBInstanceIdentifier'],
+                        SkipFinalSnapshot=True
+                    )
+                    print('Deleting DB instance {0}'.format(i['DBInstanceIdentifier']))
+                elif i['DBInstanceStatus'] == 'stopping' or i['DBInstanceStatus'] == 'starting':
+                    print('The DB instance {0} is in stopping or starting mode...Kindly wait for few mins'.format(i['DBInstanceIdentifier']))
+                    sys.exit(1)
+                else:
+                    client.start_db_instance(DBInstanceIdentifier = i['DBInstanceIdentifier'])
+                    print('starting DB instance {0}'.format(i['DBInstanceIdentifier']))                    
+
 if __name__ == '__main__':
-   status_clusters_rds()
+   global_clusters_rds()
+   delete_global_inst()
