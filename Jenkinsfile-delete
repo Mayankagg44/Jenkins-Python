@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    environment{
+        AWS_DEFAULT_REGION="ap-northeast-2"
+    }
+    parameters{
+        choice(name: 'CHOICE', choices: ['Instance', 'Cluster', 'Both'], description: 'Pick something')
+    }
+    triggers {
+        cron('58 10 * * *')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                echo "Database Cluster is: ${CLUSTER_NAME}"
+            }
+        }
+        stage('Python Script') {
+            when{
+                expression { params.CHOICE == 'Cluster' }
+                //branch 'main'
+                //environment name: 'NAME', value: 'database-1' 
+                }
+            steps {
+                withCredentials([aws(credentialsId: "760451896171", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'python3 delete-cluster.py delete ${CLUSTER_NAME}'
+                }
+            }
+        }
+    }
+}
