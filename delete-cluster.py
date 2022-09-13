@@ -2,7 +2,7 @@ import boto3
 import sys
 
 status = sys.argv[1]
-list_db = sys.argv[1]
+#list_db = sys.argv[1]
 list_inst = sys.argv[1]
 client = boto3.client('rds')
 
@@ -49,5 +49,5 @@ def delete_global_inst():
                     sys.exit(1)                
 
 if __name__ == '__main__':
-   global_clusters_rds()
+  # global_clusters_rds()
    delete_global_inst()
