@@ -3,10 +3,10 @@ import sys
 
 status = sys.argv[1]
 #list_db = sys.argv[1]
-list_inst = sys.argv[1]
+list_inst = sys.argv[2]
 client = boto3.client('rds')
 
-#Remoing RDS Global cluster
+#Removing RDS Global cluster
 def global_clusters_rds():
     for db in list_db.split(","):
         response = client.describe_global_clusters(
@@ -33,7 +33,7 @@ def delete_global_inst():
         response = client.describe_db_instances(
             DBInstanceIdentifier=db
         )     
-    print(response)
+        print(response)
 #         for i in response['DBInstances']:
 #             if status.lower() =='delete':
 #                 if i['DBInstanceStatus'] == 'available':
