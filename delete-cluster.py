@@ -11,7 +11,7 @@ def status_clusters_rds():
         response = client.describe_global_clusters(
             GlobalClusterIdentifier=db
         )
-        for i in response['DBClusters']:
+        for i in response['GlobalClusters']:
             if status.lower() =='delete':
                 if i['Status'] == 'available':
                     response = client.remove_from_global_cluster(
