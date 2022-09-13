@@ -14,11 +14,11 @@ def status_clusters_rds():
         for i in response['DBClusters']:
             if status.lower() =='delete':
                 if i['Status'] == 'available':
-                    client.delete_db_cluster(
-                        DBClusterIdentifier = i['DBClusterIdentifier'], 
-                        SkipFinalSnapshot = True
-                    )
-                    print('Deleting DB cluster {0}'.format(i['DBClusterIdentifier']))
+                    response = client.remove_from_global_cluster(
+                        GlobalClusterIdentifier=i['DBInstanceIdentifier'],
+                        DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
+                    )                   
+                    print('Removing DB cluster {0}'.format(i['DBClusterIdentifier']))
                 elif i['Status'] == 'starting' or i['Status'] == 'stopping':
                     print("It is in starting or stopping mode")
                     sys.exit(1)
