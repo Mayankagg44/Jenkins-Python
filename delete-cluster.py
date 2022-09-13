@@ -15,7 +15,7 @@ def status_clusters_rds():
             if status.lower() =='delete':
                 if i['Status'] == 'available':
                     response = client.remove_from_global_cluster(
-                        GlobalClusterIdentifier=i['DBInstanceIdentifier'],
+                        GlobalClusterIdentifier=i['DBClusterIdentifier'],
                         DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
                     )                   
                     print('Removing DB cluster {0}'.format(i['DBClusterIdentifier']))
