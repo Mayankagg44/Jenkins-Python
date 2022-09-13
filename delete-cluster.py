@@ -8,8 +8,8 @@ client = boto3.client('rds')
 #Deleting RDS cluster
 def status_clusters_rds():
     for db in list_db.split(","):
-        response = client.describe_db_clusters(
-            DBClusterIdentifier=db,
+        response = client.describe_global_clusters(
+            GlobalClusterIdentifier=db
         )
         for i in response['DBClusters']:
             if status.lower() =='delete':
