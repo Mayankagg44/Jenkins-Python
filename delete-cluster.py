@@ -14,7 +14,10 @@ def status_clusters_rds():
         for i in response['DBClusters']:
             if status.lower() =='delete':
                 if i['Status'] == 'available':
-                    client.delete_db_cluster(DBClusterIdentifier = i['DBClusterIdentifier'], SkipFinalSnapshot=False)
+                    client.delete_db_cluster(
+                        DBClusterIdentifier = i['DBClusterIdentifier'], 
+                        SkipFinalSnapshot = False
+                    )
                     print('Deleting DB cluster {0}'.format(i['DBClusterIdentifier']))
                 elif i['Status'] == 'starting' or i['Status'] == 'stopping':
                     print("It is in starting or stopping mode")
