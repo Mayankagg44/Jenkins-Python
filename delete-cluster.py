@@ -26,7 +26,8 @@ def global_clusters_rds():
                 else :
                     print('Wrong status')
                     sys.exit(1)
- 
+                    
+#Deleting RDS Global Instance
 def delete_global_inst():
     for db in list_inst.split(","):
         response = client.describe_db_instances(
@@ -44,8 +45,8 @@ def delete_global_inst():
                     print('The DB instance {0} is in stopping or starting mode...Kindly wait for few mins'.format(i['DBInstanceIdentifier']))
                     sys.exit(1)
                 else:
-                    client.start_db_instance(DBInstanceIdentifier = i['DBInstanceIdentifier'])
-                    print('starting DB instance {0}'.format(i['DBInstanceIdentifier']))                    
+                    print('Wrong status')
+                    sys.exit(1)                
 
 if __name__ == '__main__':
    global_clusters_rds()
