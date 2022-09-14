@@ -2,14 +2,14 @@ import boto3
 import sys
 
 status = sys.argv[1]
-list_db = sys.argv[2]
-list_inst = sys.argv[2]
+list_db = sys.argv[1]
+list_inst = sys.argv[1]
 client = boto3.client('rds')
 n = 3
 
 def remove_global_clusters():
     global n
-    for db in list_db.split(","):
+    for db in list_db:
         response = client.describe_global_clusters(
             GlobalClusterIdentifier=db
         )
@@ -29,7 +29,7 @@ def remove_global_clusters():
                     print('Wrong status')
                     sys.exit(1)
     while n > 0:
-        for dbi in list_inst.split(","):
+        for dbi in list_inst:
             response = client.describe_db_instances(
                 DBInstanceIdentifier=dbi
             )
