@@ -10,37 +10,33 @@ n = 3
 def remove_global_clusters():
     global n
     
-    response = client.describe_global_clusters(
-        GlobalClusterIdentifier=list_db
-        )
-        print(response)
-        for i in response['GlobalClusters']:
-            if status.lower() =='delete':
-                if i['Status'] == 'available':
+    response = client.describe_global_clusters(GlobalClusterIdentifier=list_db)
+    print(response)
+    for i in response['GlobalClusters']:
+        if status.lower() =='delete':
+            if i['Status'] == 'available':
 #                     response = client.remove_from_global_cluster(
 #                         GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
 #                         DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
 #                     )                   
-                    print('Removing Global cluster {0}'.format(i['GlobalClusterIdentifier']))
-                elif i['Status'] == 'starting' or i['Status'] == 'stopping':
-                    print("It is in starting or stopping mode")
-                    sys.exit(1)
-                else :
-                    print('Wrong status')
-                    sys.exit(1)
+                print('Removing Global cluster {0}'.format(i['GlobalClusterIdentifier']))
+            elif i['Status'] == 'starting' or i['Status'] == 'stopping':
+                print("It is in starting or stopping mode")
+                sys.exit(1)
+            else :
+                print('Wrong status')
+                sys.exit(1)
     while n > 0:
-        response = client.describe_db_instances(
-            DBInstanceIdentifier=list_inst
-            )
-            print(response)
-            for j in response['DBInstances']:
-                if j['DBInstanceStatus'] == 'available':
+        response = client.describe_db_instances(DBInstanceIdentifier=list_inst)
+        print(response)
+        for j in response['DBInstances']:
+            if j['DBInstanceStatus'] == 'available':
 #                         client.delete_db_instance(
 #                             DBInstanceIdentifier = j['DBInstanceIdentifier'],
 #                             SkipFinalSnapshot=True
 #                         )
-                    print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
-            n = 0
+                print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
+        n = 0
 
 #Deleting RDS Global cluster(after it has been removed from global database)
 # def delete_global_cluster():
