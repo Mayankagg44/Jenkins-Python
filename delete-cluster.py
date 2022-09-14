@@ -2,12 +2,13 @@ import boto3
 import sys
 
 status = sys.argv[1]
-#list_db = sys.argv[1]
-list_inst = sys.argv[2]
+list_db = sys.argv[1]
+# list_inst = sys.argv[2]
 client = boto3.client('rds')
+n = 3
 
 #Removing RDS Global cluster
-def global_clusters_rds():
+def remove_global_clusters():
     for db in list_db.split(","):
         response = client.describe_global_clusters(
             GlobalClusterIdentifier=db
@@ -26,29 +27,53 @@ def global_clusters_rds():
                 else :
                     print('Wrong status')
                     sys.exit(1)
-                    
-#Deleting RDS Global Instance
-def delete_global_inst():
-    for db in list_inst.split(","):
-        response = client.describe_db_instances(
-            DBInstanceIdentifier=db
-        )     
-        print(response)
-        for i in response['DBInstances']:
-            if status.lower() =='delete':
-                if i['DBInstanceStatus'] == 'available':
+        while n > 0:
+            for db in list_inst.split(","):
+                response = client.describe_db_instances(
+                    DBInstanceIdentifier=db
+                )
+            print(response)
+            for j in response['DBInstances']:
+                if j['DBInstanceStatus'] == 'available':
                     client.delete_db_instance(
                         DBInstanceIdentifier=i['DBInstanceIdentifier'],
                         SkipFinalSnapshot=True
                     )
-                    print('Deleting DB instance {0}'.format(i['DBInstanceIdentifier']))
-                elif i['DBInstanceStatus'] == 'stopping' or i['DBInstanceStatus'] == 'starting':
-                    print('The DB instance {0} is in stopping or starting mode...Kindly wait for few mins'.format(i['DBInstanceIdentifier']))
-                    sys.exit(1)
-                else:
-                    print('Wrong status')
-                    sys.exit(1)                
+                    print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
+            n = 0
+
+
+
+
+#Deleting RDS Global cluster(after it has been removed from global database)
+# def delete_global_cluster():
+#     for db in list_inst.split(","):
+#         response = client.describe_db_instances(
+#             DBInstanceIdentifier=db
+#         )     
+#         print(response)
+#         for i in response['DBInstances']:
+#             if status.lower() =='delete':
+#                 if i['DBClusterStatus'] == 'available':
+                   
+            #        for j in response['GlobalClusters']:
+            #     if j['Status'] == 'available':
+            #         client.delete_global_cluster(
+            #         GlobalClusterIdentifier=i['GlobalClusterIdentifier']
+            #         )
+            #         print('Deleting Global Cluster {0}'.format(j['GlobalClusterIdentifier']))
+            # n = 0
+                    
+#                 elif i['DBInstanceStatus'] == 'stopping' or i['DBInstanceStatus'] == 'starting':
+#                     print('The DB instance {0} is in stopping or starting mode...Kindly wait for few mins'.format(i['DBInstanceIdentifier']))
+#                     sys.exit(1)
+#                 else:
+#                     print('Wrong status')
+#                     sys.exit(1)   
+            
+
 
 if __name__ == '__main__':
-  # global_clusters_rds()
-   delete_global_inst()
+   remove_global_clusters()
+#    delete_global_cluster()
+#    delete_global_inst()
