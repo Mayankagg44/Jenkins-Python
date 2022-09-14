@@ -9,9 +9,9 @@ n = 3
 
 def remove_global_clusters():
     global n
-    for db in list_db:
-        response = client.describe_global_clusters(
-            GlobalClusterIdentifier=db
+    
+    response = client.describe_global_clusters(
+        GlobalClusterIdentifier=list_db
         )
         print(response)
         for i in response['GlobalClusters']:
@@ -29,9 +29,8 @@ def remove_global_clusters():
                     print('Wrong status')
                     sys.exit(1)
     while n > 0:
-        for dbi in list_inst:
-            response = client.describe_db_instances(
-                DBInstanceIdentifier=dbi
+        response = client.describe_db_instances(
+            DBInstanceIdentifier=list_inst
             )
             print(response)
             for j in response['DBInstances']:
