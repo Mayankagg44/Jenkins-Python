@@ -3,8 +3,8 @@ import sys
 
 status = sys.argv[1]
 list_db = sys.argv[2] # Global DB Cluster
-list_inst = sys.argv[3] # Instance name inside the cluster
-db_clu = sys.argv[4]    # DB Cluster (after being removed)
+db_clu = sys.argv[3]    # DB Cluster (after being removed)
+list_inst = sys.argv[4] # Instance name inside the cluster
 client = boto3.client('rds')
 n = 3
 p = 3
