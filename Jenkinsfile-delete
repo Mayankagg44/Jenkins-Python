@@ -15,8 +15,8 @@ pipeline {
             steps {
                 echo "This is the 1st step"
                 echo "Database Global Cluster is: ${GL_CLUSTER_NAME}"
+                echo "Database Cluster is: ${DB_CLUSTER}"
                 echo "Database Instance is: ${INST_NAME}"
-                echo "Database Cluster is: ${CLUSTER_NAME}"
             }
         }
         stage('Python Script') {
