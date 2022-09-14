@@ -1,13 +1,3 @@
-import boto3
-import sys
-
-status = sys.argv[1]
-list_db = sys.argv[2]
-list_inst = sys.argv[2]
-client = boto3.client('rds')
-n = 3
-
-#Removing RDS Global cluster
 def remove_global_clusters():
     global n
     for db in list_db.split(","):
@@ -30,22 +20,19 @@ def remove_global_clusters():
                     print('Wrong status')
                     sys.exit(1)
         while n > 0:
-            for db in list_inst.split(","):
+            for dbi in list_inst.split(","):
                 response = client.describe_db_instances(
-                    DBInstanceIdentifier=db
+                    DBInstanceIdentifier=dbi
                 )
                 print(response)
                 for j in response['DBInstances']:
                     if j['DBInstanceStatus'] == 'available':
-                        client.delete_db_instance(
-                            DBInstanceIdentifier=i['DBInstanceIdentifier'],
+                        response = client.delete_db_instance(
+                            DBInstanceIdentifier=j['DBInstanceIdentifier'],
                             SkipFinalSnapshot=True
                         )
                         print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
             n = 0
-
-
-
 
 #Deleting RDS Global cluster(after it has been removed from global database)
 # def delete_global_cluster():
