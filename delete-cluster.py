@@ -47,7 +47,7 @@ def remove_global_clusters():
         print(response)
         for k in response['DBClusters']:
             if k['Status'] == 'available':
-                # client.delete_db_instance(DBInstanceIdentifier = k['DBInstanceIdentifier'])
+                client.delete_db_cluster(DBClusterIdentifier = k['DBClusterIdentifier'],SkipFinalSnapshot = True)
                 print('Deleting Global_DB Cluster {0}'.format(k['DBClusterIdentifier']))
         p = 0
         # n = 0
