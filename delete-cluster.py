@@ -43,7 +43,7 @@ def remove_global_clusters():
 #Deleting RDS Global cluster(after it has been removed from global database)
     while p > 0:
         response = client.describe_db_clusters(
-            DBClusterIdentifier=list_db
+            DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
         )
         print(response)
         for k in response['DBClusters']:
