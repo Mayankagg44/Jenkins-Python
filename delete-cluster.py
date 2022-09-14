@@ -33,7 +33,7 @@ def remove_global_clusters():
                 response = client.describe_db_instances(
                     DBInstanceIdentifier=db
                 )
-            print(response)
+                print(response)
                 for j in response['DBInstances']:
                     if j['DBInstanceStatus'] == 'available':
                         client.delete_db_instance(
