@@ -18,10 +18,10 @@ def remove_global_clusters():
     for i in response['GlobalClusters']:
         if status.lower() =='delete':
             if i['Status'] == 'available':
-                # response = client.remove_from_global_cluster(
-                #     GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
-                #     DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
-                # )                   
+                response = client.remove_from_global_cluster(
+                    GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
+                    DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
+                )                   
                 print('Removing Global cluster {0}'.format(i['GlobalClusterIdentifier']))
             elif i['Status'] == 'starting' or i['Status'] == 'stopping':
                 print("It is in starting or stopping mode")
@@ -35,10 +35,10 @@ def remove_global_clusters():
         print(response)
         for j in response['DBInstances']:
             if j['DBInstanceStatus'] == 'available':
-                # client.delete_db_instance(
-                #     DBInstanceIdentifier = j['DBInstanceIdentifier'],
-                #     SkipFinalSnapshot=True
-                # )
+                client.delete_db_instance(
+                    DBInstanceIdentifier = j['DBInstanceIdentifier'],
+                    SkipFinalSnapshot=True
+                )
                 print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
         n = 0
 
@@ -48,7 +48,7 @@ def remove_global_clusters():
         print(response)
         for k in response['DBClusters']:
             if k['Status'] == 'available':
-                # client.delete_db_cluster(DBClusterIdentifier = k['DBClusterIdentifier'],SkipFinalSnapshot = True)
+                client.delete_db_cluster(DBClusterIdentifier = k['DBClusterIdentifier'],SkipFinalSnapshot = True)
                 print('Deleting Global_DB Cluster {0}'.format(k['DBClusterIdentifier']))
         p = 0
 
