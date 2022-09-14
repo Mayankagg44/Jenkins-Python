@@ -1,5 +1,6 @@
 import boto3
 import sys
+import time
 
 status = sys.argv[1]
 list_db = sys.argv[2] # Global DB Cluster
@@ -46,6 +47,7 @@ def remove_global_clusters():
     while p > 0:
         response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
         print(response)
+        time.sleep(100)
         for k in response['DBClusters']:
             if k['Status'] == 'available':
                 client.delete_db_cluster(DBClusterIdentifier = k['DBClusterIdentifier'],SkipFinalSnapshot = True)
