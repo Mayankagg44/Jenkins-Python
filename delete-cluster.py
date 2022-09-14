@@ -28,20 +28,20 @@ def remove_global_clusters():
                 else :
                     print('Wrong status')
                     sys.exit(1)
-        while n > 0:
-            for dbi in list_inst.split(","):
-                response = client.describe_db_instances(
+    while n > 0:
+        for dbi in list_inst.split(","):
+            response = client.describe_db_instances(
                 DBInstanceIdentifier=dbi
-                )
-                print(response)
-                for j in response['DBInstances']:
-                    if j['DBInstanceStatus'] == 'available':
+            )
+            print(response)
+            for j in response['DBInstances']:
+                if j['DBInstanceStatus'] == 'available':
 #                         client.delete_db_instance(
 #                             DBInstanceIdentifier = j['DBInstanceIdentifier'],
 #                             SkipFinalSnapshot=True
 #                         )
-                        print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
-                n = 0
+                    print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
+            n = 0
 
 #Deleting RDS Global cluster(after it has been removed from global database)
 # def delete_global_cluster():
