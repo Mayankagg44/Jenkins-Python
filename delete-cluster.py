@@ -2,8 +2,9 @@ import boto3
 import sys
 
 status = sys.argv[1]
-#list_db = sys.argv[2]
-#list_inst = sys.argv[3]
+#list_db = sys.argv[2] # Global DB name
+#list_inst = sys.argv[3] # Instance name inside the cluster
+db_clu = sys.argv[2]
 client = boto3.client('rds')
 n = 3
 p = 3
@@ -42,9 +43,7 @@ def remove_global_clusters():
 
 #Deleting RDS Global cluster(after it has been removed from global database)
     while p > 0:
-        response = client.describe_db_clusters(
-            DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
-        )
+        response = client.describe_db_clusters(DbClusterIdentifier=db_clu)
         print(response)
         for k in response['DBClusters']:
             if k['Status'] == 'available':
