@@ -44,7 +44,7 @@ def remove_global_clusters():
 
 #Deleting RDS Global cluster(after it has been removed from global database)
     while p > 0:
-        response = client.describe_db_clusters(DbClusterIdentifier=db_clu)
+        response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
         print(response)
         for k in response['DBClusters']:
             if k['Status'] == 'available':
