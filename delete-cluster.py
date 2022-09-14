@@ -9,25 +9,25 @@ n = 3
 
 def remove_global_clusters():
     global n
-    for db in list_db.split(","):
-        response = client.describe_global_clusters(
-            GlobalClusterIdentifier=db
-        )
-        print(response)
-        for i in response['GlobalClusters']:
-            if status.lower() =='delete':
-                if i['Status'] == 'available':
-#                     response = client.remove_from_global_cluster(
-#                         GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
-#                         DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
-#                     )                   
-                    print('Removing Global cluster {0}'.format(i['GlobalClusterIdentifier']))
-                elif i['Status'] == 'starting' or i['Status'] == 'stopping':
-                    print("It is in starting or stopping mode")
-                    sys.exit(1)
-                else :
-                    print('Wrong status')
-                    sys.exit(1)
+#     for db in list_db.split(","):
+#         response = client.describe_global_clusters(
+#             GlobalClusterIdentifier=db
+#         )
+#         print(response)
+#         for i in response['GlobalClusters']:
+#             if status.lower() =='delete':
+#                 if i['Status'] == 'available':
+# #                     response = client.remove_from_global_cluster(
+# #                         GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
+# #                         DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
+# #                     )                   
+#                     print('Removing Global cluster {0}'.format(i['GlobalClusterIdentifier']))
+#                 elif i['Status'] == 'starting' or i['Status'] == 'stopping':
+#                     print("It is in starting or stopping mode")
+#                     sys.exit(1)
+#                 else :
+#                     print('Wrong status')
+#                     sys.exit(1)
     while n > 0:
         for dbi in list_inst.split(","):
             response = client.describe_db_instances(
