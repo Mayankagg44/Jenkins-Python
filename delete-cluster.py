@@ -9,6 +9,7 @@ n = 3
 
 #Removing RDS Global cluster
 def remove_global_clusters():
+    global n
     for db in list_db.split(","):
         response = client.describe_global_clusters(
             GlobalClusterIdentifier=db
