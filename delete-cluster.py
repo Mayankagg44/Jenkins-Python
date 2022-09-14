@@ -2,8 +2,8 @@ import boto3
 import sys
 
 status = sys.argv[1]
-list_db = sys.argv[2]
-list_inst = sys.argv[3]
+#list_db = sys.argv[2]
+#list_inst = sys.argv[3]
 client = boto3.client('rds')
 n = 3
 p = 3
