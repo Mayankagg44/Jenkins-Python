@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                echo "Database Cluster is: ${CLUSTER_NAME}"
+                //echo "Database Cluster is: ${CLUSTER_NAME}"
                 echo "Database Instance is: ${INST_NAME}"
             }
         }
