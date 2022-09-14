@@ -13,7 +13,7 @@ def remove_global_clusters():
         response = client.describe_global_clusters(
             GlobalClusterIdentifier=db
         )
-    print(response)
+        print(response)
         for i in response['GlobalClusters']:
             if status.lower() =='delete':
                 if i['Status'] == 'available':
