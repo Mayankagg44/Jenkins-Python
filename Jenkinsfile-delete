@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment{
-        //AWS_DEFAULT_REGION="ap-northeast-2"
-        AWS_DEFAULT_REGION="us-east-1"
+        AWS_DEFAULT_REGION="ap-northeast-2"
+        //AWS_DEFAULT_REGION="us-east-1"
     }
     parameters{
         choice(name: 'CHOICE', choices: ['Instance', 'Cluster', 'Both'], description: 'Pick something')
