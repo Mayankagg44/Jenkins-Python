@@ -130,7 +130,7 @@ def remove_global_clusters():
         # EnableCloudwatchLogsExports=[
         #     'string',
         # ],
-        DeletionProtection=False,
+        # DeletionProtection=False,
         # MaxAllocatedStorage=123,
         # EnableCustomerOwnedIp=True|False,
         # CustomIamInstanceProfile='string',
