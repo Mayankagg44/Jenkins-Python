@@ -89,9 +89,9 @@ def remove_global_clusters():
        # StorageType='io1',
        # Iops=2000,
        # PubliclyAccessible=True,
-        AutoMinorVersionUpgrade=True,
-        MonitoringInterval=0,
-        EnablePerformanceInsights=False,
+       # AutoMinorVersionUpgrade=True,
+       # MonitoringInterval=0,
+       # EnablePerformanceInsights=False,
         NetworkType='IPV4',
         SourceRegion='us-east-1'
     )
