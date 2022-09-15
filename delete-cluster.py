@@ -85,7 +85,7 @@ def remove_global_clusters():
             #DomainIAMRoleName='string',
             #EnableGlobalWriteForwarding=True|False,
        # DBClusterInstanceClass='db.r5.large',
-        AllocatedStorage=100,
+       # AllocatedStorage=100,
        # StorageType='io1',
        # Iops=2000,
        # PubliclyAccessible=True,
