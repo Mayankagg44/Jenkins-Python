@@ -100,6 +100,7 @@ def remove_global_clusters():
     client.create_db_instance(
        # DBName='string',
         DBInstanceIdentifier=list_inst,
+        DBInstanceClass='db.r5.large',
        # AllocatedStorage=123,
         Engine='aurora-mysql',
         DBSubnetGroupName='rds-ec2-db-subnet-group-1',
