@@ -65,7 +65,7 @@ def remove_global_clusters():
             #CharacterSetName = 'string',
         DBClusterIdentifier=db_clu,
         DBClusterParameterGroupName='default.aurora-mysql5.7',
-        VpcSecurityGroupIds=['default'],
+      #  VpcSecurityGroupIds=['default'],
         DBSubnetGroupName='db-subnet',
         Engine='aurora-mysql',
         EngineVersion='5.7.mysql_aurora.2.10.2',
