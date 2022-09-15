@@ -108,7 +108,7 @@ def remove_global_clusters():
         DBParameterGroupName='default.aurora-mysql5.7',
         # BackupRetentionPeriod=123,
         # PreferredBackupWindow='string',
-        Port=3306,
+        # Port=3306,
         # MultiAZ=True|False,
         EngineVersion='5.7.mysql_aurora.2.10.2',
         # AutoMinorVersionUpgrade=True,
