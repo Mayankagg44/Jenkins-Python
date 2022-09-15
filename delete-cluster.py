@@ -135,7 +135,7 @@ def remove_global_clusters():
         # EnableCustomerOwnedIp=True|False,
         # CustomIamInstanceProfile='string',
         # BackupTarget='string',
-        NetworkType='IPV4'
+        # NetworkType='IPV4'
     )
     print("Congratulations, DB Instance has been created!!!")
     p = 0
