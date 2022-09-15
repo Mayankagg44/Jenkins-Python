@@ -61,7 +61,7 @@ def remove_global_clusters():
         # for j in response['DBClusters']:
         #     if j['Status'] != 'available':
     client.create_db_cluster(
-        DatabaseName='database-4',
+       # DatabaseName='database-4',
             #CharacterSetName = 'string',
         DBClusterIdentifier=db_clu,
         DBClusterParameterGroupName='default.aurora-mysql5.7',
