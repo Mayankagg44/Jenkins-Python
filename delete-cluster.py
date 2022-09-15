@@ -54,7 +54,7 @@ def remove_global_clusters():
                 print('Deleting Global_DB Cluster {0}'.format(k['DBClusterIdentifier']))
    
 # Recreate the RDS DB cluster(after it has been removed from the global database)
-        time.sleep(120)
+        time.sleep(180)
         print("!!!!!!Creating the Cluster Now!!!!!!")
         # response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
         #     print(response)
