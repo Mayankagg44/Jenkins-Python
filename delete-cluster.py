@@ -77,7 +77,7 @@ def remove_global_clusters():
                     StorageEncrypted=True,
                     KmsKeyId='dfc76317-d847-4a42-b8c7-1c17ffadde02',
                     EnableCloudwatchLogsExports=['general'],
-                    EngineMode='provisioned'
+                    EngineMode='provisioned',
                     EnableIAMDatabaseAuthentication=False,
                     DeletionProtection=False,
                     GlobalClusterIdentifier=list_db,
