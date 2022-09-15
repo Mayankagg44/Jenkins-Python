@@ -123,7 +123,7 @@ def remove_global_clusters():
         # DomainIAMRoleName='string',
         # PromotionTier=123,
         # Timezone='string',
-        EnableIAMDatabaseAuthentication=True,
+#         EnableIAMDatabaseAuthentication=False,
         EnablePerformanceInsights=False,
         # PerformanceInsightsKMSKeyId='string',
         # PerformanceInsightsRetentionPeriod=123,
