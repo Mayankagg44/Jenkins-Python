@@ -103,7 +103,7 @@ def remove_global_clusters():
         DBInstanceClass='db.r5.large',
        # AllocatedStorage=123,
         Engine='aurora-mysql',
-        DBSubnetGroupName='rds-ec2-db-subnet-group-1',
+        DBSubnetGroupName='db-subnet',
         # PreferredMaintenanceWindow='string',
         DBParameterGroupName='default.aurora-mysql5.7',
         # BackupRetentionPeriod=123,
