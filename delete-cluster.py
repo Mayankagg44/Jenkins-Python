@@ -88,7 +88,7 @@ def remove_global_clusters():
         AllocatedStorage=100,
        # StorageType='io1',
        # Iops=2000,
-        PubliclyAccessible=True,
+       # PubliclyAccessible=True,
         AutoMinorVersionUpgrade=True,
         MonitoringInterval=0,
         EnablePerformanceInsights=False,
