@@ -72,7 +72,7 @@ def remove_global_clusters():
         Port=3306,
         MasterUsername='admin',
         MasterUserPassword='password',
-        OptionGroupName='default:aurora-mysql-5-7',
+       # OptionGroupName='default:aurora-mysql-5-7',
         ReplicationSourceIdentifier='arn:aws:rds:us-east-1:760451896171:cluster:database-3',
         StorageEncrypted=True,
         KmsKeyId='dfc76317-d847-4a42-b8c7-1c17ffadde02',
