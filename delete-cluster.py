@@ -96,7 +96,18 @@ def remove_global_clusters():
     )
     print("Congratulations, DB Cluster has been created!!!\n\n")
 
-    time.sleep(180)
+    # time.sleep(180)
+    waiter = client.get_waiter('db_cluster_available')
+    waiter.wait(
+        DBClusterIdentifier=db_clu,
+        # MaxRecords=123,
+        # Marker='string',
+        # IncludeShared=True|False,
+        WaiterConfig={
+            'Delay': 900,   #15 mins
+            'MaxAttempts': 10
+        }
+    )
     print("*****Now creating the global instance*****")
     client.create_db_instance(
        # DBName='string',
