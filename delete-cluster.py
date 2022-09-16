@@ -61,7 +61,6 @@ def remove_global_clusters():
         # for j in response['DBClusters']:
         #     if j['Status'] != 'available':
     client.create_db_cluster(
-       # DatabaseName='database-4',
         DBClusterIdentifier=db_clu,
         DBClusterParameterGroupName='default.aurora-mysql5.7',
       #  VpcSecurityGroupIds=['default'],
@@ -104,52 +103,58 @@ def remove_global_clusters():
         # Marker='string',
         # IncludeShared=True|False,
         WaiterConfig={
-            'Delay': 900,   #15 mins
-            'MaxAttempts': 10
+            'Delay': 2700,   #45 mins
+            'MaxAttempts': 1
         }
     )
-    print("*****Now creating the global instance*****")
-    client.create_db_instance(
-       # DBName='string',
-        DBInstanceIdentifier=list_inst,
-        DBInstanceClass='db.r5.large',
-       # AllocatedStorage=123,
-        Engine='aurora-mysql',
-        DBSubnetGroupName='rds-ec2-db-subnet-group-1',
-        # PreferredMaintenanceWindow='string',
-        DBParameterGroupName='default.aurora-mysql5.7',
-        # BackupRetentionPeriod=123,
-        # PreferredBackupWindow='string',
-        Port=3306,
-        # MultiAZ=True|False,
-        EngineVersion='5.7.mysql_aurora.2.10.2',
-        # AutoMinorVersionUpgrade=True,
-        # LicenseModel='string',
-        # NcharCharacterSetName='string',
-        DBClusterIdentifier=db_clu,
-        # StorageType='string',
-        # TdeCredentialArn='string',
-        # TdeCredentialPassword='string',
-        StorageEncrypted=True,
-        # KmsKeyId='string',
-        # DomainIAMRoleName='string',
-        # PromotionTier=123,
-        # Timezone='string',
-        # EnableIAMDatabaseAuthentication=False,
-        EnablePerformanceInsights=False,
-        # PerformanceInsightsKMSKeyId='string',
-        # PerformanceInsightsRetentionPeriod=123,
-        # EnableCloudwatchLogsExports=[
-        #     'string',
-        # ],
-        DeletionProtection=False,
-        # MaxAllocatedStorage=123,
-        # EnableCustomerOwnedIp=True|False,
-        # CustomIamInstanceProfile='string',
-        # BackupTarget='string',
-        NetworkType='IPV4'
-    )
-    print("Congratulations, DB Instance has been created!!!")
+    response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
+    print(response)
+    for j in response['DBClusters']:
+        if j['Status'] == 'available':
+            print("*****Now creating the global instance*****")
+            client.create_db_instance(
+            # DBName='string',
+                DBInstanceIdentifier=list_inst,
+                DBInstanceClass='db.r5.large',
+            # AllocatedStorage=123,
+                Engine='aurora-mysql',
+                DBSubnetGroupName='rds-ec2-db-subnet-group-1',
+                # PreferredMaintenanceWindow='string',
+                DBParameterGroupName='default.aurora-mysql5.7',
+                # BackupRetentionPeriod=123,
+                # PreferredBackupWindow='string',
+                Port=3306,
+                # MultiAZ=True|False,
+                EngineVersion='5.7.mysql_aurora.2.10.2',
+                # AutoMinorVersionUpgrade=True,
+                # LicenseModel='string',
+                # NcharCharacterSetName='string',
+                DBClusterIdentifier=db_clu,
+                # StorageType='string',
+                # TdeCredentialArn='string',
+                # TdeCredentialPassword='string',
+                StorageEncrypted=True,
+                # KmsKeyId='string',
+                # DomainIAMRoleName='string',
+                # PromotionTier=123,
+                # Timezone='string',
+                # EnableIAMDatabaseAuthentication=False,
+                EnablePerformanceInsights=False,
+                # PerformanceInsightsKMSKeyId='string',
+                # PerformanceInsightsRetentionPeriod=123,
+                # EnableCloudwatchLogsExports=[
+                #     'string',
+                # ],
+                DeletionProtection=False,
+                # MaxAllocatedStorage=123,
+                # EnableCustomerOwnedIp=True|False,
+                # CustomIamInstanceProfile='string',
+                # BackupTarget='string',
+                NetworkType='IPV4'
+            )
+            print("Congratulations, DB Instance has been created!!!")
+        else:
+            print("DB Cluster is not in available state yet!!!")
     p = 0
 
 
