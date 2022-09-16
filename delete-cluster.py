@@ -54,48 +54,49 @@ def remove_global_clusters():
 #                 print('Deleting Global_DB Cluster {0}'.format(k['DBClusterIdentifier']))
    
 # Recreate the RDS DB cluster(after it has been removed from the global database)
-        # time.sleep(120)
-    print("!!!!!!!!Creating the Cluster Now!!!!!!")
+    #time.sleep(120)
+    print("!!!!!!!!Creating the DB Cluster Now!!!!!!")
         # response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
         #     print(response)
         # for j in response['DBClusters']:
-#         #     if j['Status'] != 'available':
-#     client.create_db_cluster(
-#        # DatabaseName='database-4',
-#             #CharacterSetName = 'string',
-#         DBClusterIdentifier=db_clu,
-#         DBClusterParameterGroupName='default.aurora-mysql5.7',
-#       #  VpcSecurityGroupIds=['default'],
-#         DBSubnetGroupName='db-subnet',
-#         Engine='aurora-mysql',
-#         EngineVersion='5.7.mysql_aurora.2.10.2',
-#         Port=3306,
-# #         MasterUsername='admin',
-# #         MasterUserPassword='password',
-#        # OptionGroupName='default:aurora-mysql-5-7',
-#        # ReplicationSourceIdentifier='arn:aws:rds:us-east-1:760451896171:cluster:database-3',
-#         StorageEncrypted=True,
-#         KmsKeyId='dfc76317-d847-4a42-b8c7-1c17ffadde02',
-#         EnableCloudwatchLogsExports=['general'],
-#         EngineMode='provisioned',
-#         EnableIAMDatabaseAuthentication=False,
-#         DeletionProtection=False,
-#         GlobalClusterIdentifier=list_db,
-#             #Domain='string',
-#             #DomainIAMRoleName='string',
-#             #EnableGlobalWriteForwarding=True|False,
-#        # DBClusterInstanceClass='db.r5.large',
-#        # AllocatedStorage=100,
-#        # StorageType='io1',
-#        # Iops=2000,
-#        # PubliclyAccessible=True,
-#        # AutoMinorVersionUpgrade=True,
-#        # MonitoringInterval=0,
-#        # EnablePerformanceInsights=False,
-#         NetworkType='IPV4',
-#         SourceRegion='us-east-1'
-#     )
-#     print("Congratulations, Cluster has been created!!!")
+        #     if j['Status'] != 'available':
+    client.create_db_cluster(
+       # DatabaseName='database-4',
+        DBClusterIdentifier=db_clu,
+        DBClusterParameterGroupName='default.aurora-mysql5.7',
+      #  VpcSecurityGroupIds=['default'],
+        DBSubnetGroupName='db-subnet',
+        Engine='aurora-mysql',
+        EngineVersion='5.7.mysql_aurora.2.10.2',
+        Port=3306,
+#         MasterUsername='admin',
+#         MasterUserPassword='password',
+       # OptionGroupName='default:aurora-mysql-5-7',
+       # ReplicationSourceIdentifier='arn:aws:rds:us-east-1:760451896171:cluster:database-3',
+        StorageEncrypted=True,
+        KmsKeyId='dfc76317-d847-4a42-b8c7-1c17ffadde02',
+        EnableCloudwatchLogsExports=['general'],
+        EngineMode='provisioned',
+        EnableIAMDatabaseAuthentication=False,
+        DeletionProtection=False,
+        GlobalClusterIdentifier=list_db,
+            #Domain='string',
+            #DomainIAMRoleName='string',
+            #EnableGlobalWriteForwarding=True|False,
+       # DBClusterInstanceClass='db.r5.large',
+       # AllocatedStorage=100,
+       # StorageType='io1',
+       # Iops=2000,
+       # PubliclyAccessible=True,
+       # AutoMinorVersionUpgrade=True,
+       # MonitoringInterval=0,
+       # EnablePerformanceInsights=False,
+        NetworkType='IPV4',
+        SourceRegion='us-east-1'
+    )
+    print("Congratulations, DB Cluster has been created!!!\n\n")
+
+    time.sleep(180)
     print("*****Now creating the global instance*****")
     client.create_db_instance(
        # DBName='string',
@@ -103,12 +104,12 @@ def remove_global_clusters():
         DBInstanceClass='db.r5.large',
        # AllocatedStorage=123,
         Engine='aurora-mysql',
-        DBSubnetGroupName='db-subnet',
+        DBSubnetGroupName='rds-ec2-db-subnet-group-1',
         # PreferredMaintenanceWindow='string',
         DBParameterGroupName='default.aurora-mysql5.7',
         # BackupRetentionPeriod=123,
         # PreferredBackupWindow='string',
-        # Port=3306,
+        Port=3306,
         # MultiAZ=True|False,
         EngineVersion='5.7.mysql_aurora.2.10.2',
         # AutoMinorVersionUpgrade=True,
@@ -123,19 +124,19 @@ def remove_global_clusters():
         # DomainIAMRoleName='string',
         # PromotionTier=123,
         # Timezone='string',
-#         EnableIAMDatabaseAuthentication=False,
+        # EnableIAMDatabaseAuthentication=False,
         EnablePerformanceInsights=False,
         # PerformanceInsightsKMSKeyId='string',
         # PerformanceInsightsRetentionPeriod=123,
         # EnableCloudwatchLogsExports=[
         #     'string',
         # ],
-        # DeletionProtection=False,
+        DeletionProtection=False,
         # MaxAllocatedStorage=123,
         # EnableCustomerOwnedIp=True|False,
         # CustomIamInstanceProfile='string',
         # BackupTarget='string',
-        # NetworkType='IPV4'
+        NetworkType='IPV4'
     )
     print("Congratulations, DB Instance has been created!!!")
     p = 0
