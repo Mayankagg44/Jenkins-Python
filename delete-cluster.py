@@ -61,6 +61,7 @@ def remove_global_clusters():
         # for j in response['DBClusters']:
         #     if j['Status'] != 'available':
     client.create_db_cluster(
+       # DatabaseName='database-4',
         DBClusterIdentifier=db_clu,
         DBClusterParameterGroupName='default.aurora-mysql5.7',
       #  VpcSecurityGroupIds=['default'],
@@ -104,7 +105,7 @@ def remove_global_clusters():
         # IncludeShared=True|False,
         WaiterConfig={
             'Delay': 2700,   #45 mins
-            'MaxAttempts': 1
+            'MaxAttempts': 2
         }
     )
     response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
