@@ -23,7 +23,7 @@ pipeline {
                 }
             steps {
                 withCredentials([aws(credentialsId: "760451896171", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'python3 delete-cluster.py create ${GL_CLUSTER_NAME} ${DB_CLUSTER} ${INST_NAME}'   
+                    sh 'python3 create-cluster.py create ${GL_CLUSTER_NAME} ${DB_CLUSTER} ${INST_NAME}'   
                 }
             }
         }
