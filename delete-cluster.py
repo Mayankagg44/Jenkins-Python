@@ -42,7 +42,14 @@ def remove_global_clusters():
 #                 )
 #                 print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
 #         n = 0
-
+    waiter = client.get_waiter('db_cluster_available')
+    waiter.wait(
+        DBClusterIdentifier=db_clu,
+        WaiterConfig={
+            'Delay': 180,   #3 mins
+            'MaxAttempts': 2
+        }
+    )
 # # Deleting RDS DB cluster(after it has been removed from global database)
 #     while p > 0:
 #         response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
