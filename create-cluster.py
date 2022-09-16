@@ -6,8 +6,7 @@ list_db = sys.argv[2] # Global DB Cluster
 db_clu = sys.argv[3]    # DB Cluster (after being removed)
 list_inst = sys.argv[4] # Instance name inside the cluster
 client = boto3.client('rds')
-n = 3
-p = 3
+
 
 def recreate_global_cluster():
 
@@ -39,33 +38,33 @@ def recreate_global_cluster():
             'MaxAttempts': 2
         }
     )
-    print("DB Cluster {0} has been created!!!\n\n".format(DBClusterIdentifier))
+    print("DB Cluster {0} has been created!!!\n\n".format(db_clu))
   
     for db in db_clu:
-    response = client.describe_db_clusters(
-        DBClusterIdentifier=db
-    )
-    print(response)
-    for j in response['DBClusters']:
-        if j['Status'] == 'available':
-            print("*****Now creating the DB Cluster instance*****")
-            client.create_db_instance(
-                DBInstanceIdentifier=j['list_inst'],
-                DBInstanceClass='db.r5.large',
-                Engine='aurora-mysql',
-                DBSubnetGroupName='db-subnet',
-                DBParameterGroupName='default.aurora-mysql5.7',
-                Port=3306,
-                EngineVersion='5.7.mysql_aurora.2.10.2',
-                DBClusterIdentifier=j['db_clu'],
-                StorageEncrypted=True,
-                EnablePerformanceInsights=False,
-                DeletionProtection=False,
-                NetworkType='IPV4'
-            )
-            print("DB Cluster Instance {0} has been created!!!\n\n".format(j['DBInstanceIdentifier']))
-        else:
-            print("DB Cluster is not in available state yet!!!")
+        response = client.describe_db_clusters(
+            DBClusterIdentifier=db
+        )
+        print(response)
+        for j in response['DBClusters']:
+            if j['Status'] == 'available':
+                print("*****Now creating the DB Cluster instance*****")
+                client.create_db_instance(
+                    DBInstanceIdentifier=j['list_inst'],
+                    DBInstanceClass='db.r5.large',
+                    Engine='aurora-mysql',
+                    DBSubnetGroupName='db-subnet',
+                    DBParameterGroupName='default.aurora-mysql5.7',
+                    Port=3306,
+                    EngineVersion='5.7.mysql_aurora.2.10.2',
+                    DBClusterIdentifier=j['db_clu'],
+                    StorageEncrypted=True,
+                    EnablePerformanceInsights=False,
+                    DeletionProtection=False,
+                    NetworkType='IPV4'
+                )
+                print("DB Cluster Instance {0} has been created!!!\n\n".format(j['DBInstanceIdentifier']))
+            else:
+                print("DB Cluster is not in available state yet!!!")
 
             
 if __name__ == '__main__':
