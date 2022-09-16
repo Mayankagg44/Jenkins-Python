@@ -30,7 +30,7 @@ def recreate_global_cluster():
         NetworkType='IPV4',
         SourceRegion='us-east-1'
     )
-    print("Congratulations, DB Cluster has been created!!!\n\n")
+    print("DB Cluster {0} has been created!!!\n\n".format(i['DBClusterIdentifier']))
 
     waiter = client.get_waiter('db_cluster_available')
     waiter.wait(
@@ -59,7 +59,7 @@ def recreate_global_cluster():
                 DeletionProtection=False,
                 NetworkType='IPV4'
             )
-            print("Congratulations, DB Instance has been created!!!")
+            print("DB Cluster Instance {0} has been created!!!\n\n".format(i['DBInstanceIdentifier']))
         else:
             print("DB Cluster is not in available state yet!!!")
 
