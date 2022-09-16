@@ -35,7 +35,7 @@ def recreate_global_cluster():
     waiter.wait(
         DBClusterIdentifier=db_clu,
         WaiterConfig={
-            'Delay': 3600,   #60 mins
+            'Delay': 4200,   #70 mins
             'MaxAttempts': 2
         }
     )
