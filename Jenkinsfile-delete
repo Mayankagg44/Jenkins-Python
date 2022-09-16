@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment{
         AWS_DEFAULT_REGION="ap-northeast-2"
-        //AWS_DEFAULT_REGION="us-east-1"
     }
     parameters{
         choice(name: 'CHOICE', choices: ['Instance', 'Cluster', 'Both'], description: 'Pick something')
@@ -13,7 +12,6 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                echo "This is the 1st step"
                 echo "Database Global Cluster is: ${GL_CLUSTER_NAME}"
                 echo "Database Cluster is: ${DB_CLUSTER}"
                 echo "Database Instance is: ${INST_NAME}"
@@ -22,13 +20,10 @@ pipeline {
         stage('Python Script') {
             when{
                 expression { params.CHOICE == 'Cluster' }
-                //branch 'main'
-                //environment name: 'NAME', value: 'database-1' 
                 }
             steps {
                 withCredentials([aws(credentialsId: "760451896171", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'python3 delete-cluster.py delete ${GL_CLUSTER_NAME} ${DB_CLUSTER} ${INST_NAME}'   
-                   // sh 'python3 delete-cluster.py delete ${CLUSTER_NAME}'
                 }
             }
         }
