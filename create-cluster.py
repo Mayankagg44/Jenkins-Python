@@ -30,7 +30,6 @@ def recreate_global_cluster():
         NetworkType='IPV4',
         SourceRegion='us-east-1'
     )
-    print("DB Cluster {0} has been created!!!\n\n".format(DBClusterIdentifier))
 
     waiter = client.get_waiter('db_cluster_available')
     waiter.wait(
@@ -40,6 +39,8 @@ def recreate_global_cluster():
             'MaxAttempts': 2
         }
     )
+    print("DB Cluster {0} has been created!!!\n\n".format(DBClusterIdentifier))
+  
     response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
     print(response)
     for j in response['DBClusters']:
