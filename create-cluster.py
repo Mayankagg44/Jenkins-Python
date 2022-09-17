@@ -40,8 +40,8 @@ def recreate_global_cluster():
 #     )
     print("DB Cluster {0} has been created!!!\n\n".format(db_clu))
   
-    response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
-    print(response)
+#     response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
+#     print(response)
     print("*****Now creating the DB Cluster instance*****")
     client.create_db_instance(
         DBInstanceIdentifier=list_inst,
@@ -49,7 +49,7 @@ def recreate_global_cluster():
         Engine='aurora-mysql',
         DBSubnetGroupName='db-subnet',
         DBParameterGroupName='default.aurora-mysql5.7',
-        Port=3306,
+#         Port=3306,
         EngineVersion='5.7.mysql_aurora.2.10.2',
         DBClusterIdentifier=db_clu,
         StorageEncrypted=True,
