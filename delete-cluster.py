@@ -22,7 +22,7 @@ def remove_global_clusters():
                     GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
                     DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
                 )                   
-                print('Removing Global cluster {0}'.format(i['GlobalClusterIdentifier']))
+                print('Removing DB cluster {0}'.format(i['DbClusterIdentifier']))
             elif i['Status'] == 'starting' or i['Status'] == 'stopping':
                 print("It is in starting or stopping mode")
                 sys.exit(1)
