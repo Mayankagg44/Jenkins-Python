@@ -55,7 +55,7 @@ def recreate_global_cluster():
         StorageEncrypted=True,
         EnablePerformanceInsights=False,
        # DeletionProtection=False,
-        NetworkType='IPV4'
+#         NetworkType='IPV4'
     )
     print("DB Cluster Instance {0} has been created!!!\n\n".format(list_inst))
 
