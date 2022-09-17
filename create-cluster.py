@@ -44,7 +44,7 @@ def recreate_global_cluster():
     print(response)
     print("*****Now creating the DB Cluster instance*****")
     client.create_db_instance(
-        DBInstanceIdentifier='list_inst',
+        DBInstanceIdentifier=list_inst,
         DBInstanceClass='db.r5.large',
         Engine='aurora-mysql',
         DBSubnetGroupName='db-subnet',
