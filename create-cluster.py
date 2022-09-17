@@ -51,7 +51,7 @@ def recreate_global_cluster():
         DBParameterGroupName='default.aurora-mysql5.7',
         Port=3306,
         EngineVersion='5.7.mysql_aurora.2.10.2',
-        DBClusterIdentifier='db_clu',
+        DBClusterIdentifier=db_clu,
         StorageEncrypted=True,
         EnablePerformanceInsights=False,
         DeletionProtection=False,
