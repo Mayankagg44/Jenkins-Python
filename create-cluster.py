@@ -34,37 +34,30 @@ def recreate_global_cluster():
     waiter.wait(
         DBClusterIdentifier=db_clu,
         WaiterConfig={
-            'Delay': 4200,   #70 mins
+            'Delay': 3800,   #63.3 mins
             'MaxAttempts': 2
         }
     )
     print("DB Cluster {0} has been created!!!\n\n".format(db_clu))
   
-    for db in db_clu:
-        response = client.describe_db_clusters(
-            DBClusterIdentifier=db
-        )
-        print(response)
-        for j in response['DBClusters']:
-            if j['Status'] == 'available':
-                print("*****Now creating the DB Cluster instance*****")
-                client.create_db_instance(
-                    DBInstanceIdentifier=j['list_inst'],
-                    DBInstanceClass='db.r5.large',
-                    Engine='aurora-mysql',
-                    DBSubnetGroupName='db-subnet',
-                    DBParameterGroupName='default.aurora-mysql5.7',
-                    Port=3306,
-                    EngineVersion='5.7.mysql_aurora.2.10.2',
-                    DBClusterIdentifier=j['db_clu'],
-                    StorageEncrypted=True,
-                    EnablePerformanceInsights=False,
-                    DeletionProtection=False,
-                    NetworkType='IPV4'
-                )
-                print("DB Cluster Instance {0} has been created!!!\n\n".format(j['DBInstanceIdentifier']))
-            else:
-                print("DB Cluster is not in available state yet!!!")
+    response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
+    print(response)
+    print("*****Now creating the DB Cluster instance*****")
+    client.create_db_instance(
+        DBInstanceIdentifier=j['list_inst'],
+        DBInstanceClass='db.r5.large',
+        Engine='aurora-mysql',
+        DBSubnetGroupName='db-subnet',
+        DBParameterGroupName='default.aurora-mysql5.7',
+        Port=3306,
+        EngineVersion='5.7.mysql_aurora.2.10.2',
+        DBClusterIdentifier=j['db_clu'],
+        StorageEncrypted=True,
+        EnablePerformanceInsights=False,
+        DeletionProtection=False,
+        NetworkType='IPV4'
+    )
+    print("DB Cluster Instance {0} has been created!!!\n\n".format(list_inst))
 
             
 if __name__ == '__main__':
