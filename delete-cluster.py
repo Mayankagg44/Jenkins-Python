@@ -49,7 +49,15 @@ def remove_global_clusters():
                     SkipFinalSnapshot=True
                 )
                 print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
-
+    
+        waiter = client.get_waiter('db_instance_deleted')
+        waiter.wait(
+            DBInstanceIdentifier=list_inst,
+            WaiterConfig={
+                'Delay': 180,
+                'MaxAttempts': 2
+            }
+        )                
         waiter = client.get_waiter('db_cluster_available')
         waiter.wait(
             DBClusterIdentifier=db_clu,
@@ -58,6 +66,7 @@ def remove_global_clusters():
                 'MaxAttempts': 2
             }
         )
+
         n = 0
 
 
