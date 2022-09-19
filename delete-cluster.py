@@ -20,7 +20,7 @@ def remove_global_clusters():
             if i['Status'] == 'available':
                 response = client.remove_from_global_cluster(
                     GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
-                    DbClusterIdentifier='arn:aws:rds:ap-northeast-2:760451896171:cluster:db-global-cluster-1'
+                    DbClusterIdentifier='arn:aws:rds:ca-central-1:760451896171:cluster:db-global-cluster-1'
                 )                   
                 print('Removing DB cluster {0}'.format(i['DbClusterIdentifier']))
             elif i['Status'] == 'starting' or i['Status'] == 'stopping':
