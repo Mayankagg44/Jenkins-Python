@@ -28,7 +28,7 @@ def remove_global_clusters():
                     GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
                     DbClusterIdentifier='arn:aws:rds:ca-central-1:760451896171:cluster:db-global-cluster-1'
                 )
-                print("DB".format())
+#                 print("DB".format())
                 print('Removing DB cluster {0}'.format(i['DbClusterIdentifier']))\
 
             elif i['Status'] == 'starting' or i['Status'] == 'stopping':
