@@ -49,26 +49,27 @@ def remove_global_clusters():
                     SkipFinalSnapshot=True
                 )
                 print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
+
+        waiter = client.get_waiter('db_cluster_available')
+        waiter.wait(
+            DBClusterIdentifier=db_clu,
+            WaiterConfig={
+                'Delay': 180,   #3 mins
+                'MaxAttempts': 2
+            }
+        )
         n = 0
 
-    waiter = client.get_waiter('db_cluster_available')
-    waiter.wait(
-        DBClusterIdentifier=db_clu,
-        WaiterConfig={
-            'Delay': 180,   #3 mins
-            'MaxAttempts': 2
-        }
-    )
 
-# Deleting RDS DB cluster(after it has been removed from global database)
-    while p > 0:
-        response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
-        print(response)
-        for k in response['DBClusters']:
-            if k['Status'] == 'available':
-                client.delete_db_cluster(DBClusterIdentifier = k['DBClusterIdentifier'],SkipFinalSnapshot = True)
-                print('Deleting Global_DB Cluster {0}'.format(k['DBClusterIdentifier']))
-        p = 0
+    # Deleting RDS DB cluster(after it has been removed from global database)
+        while p > 0:
+            response = client.describe_db_clusters(DBClusterIdentifier=db_clu)
+            print(response)
+            for k in response['DBClusters']:
+                if k['Status'] == 'available':
+                    client.delete_db_cluster(DBClusterIdentifier = k['DBClusterIdentifier'],SkipFinalSnapshot = True)
+                    print('Deleting Global_DB Cluster {0}'.format(k['DBClusterIdentifier']))
+            p = 0
 
 
 if __name__ == '__main__':
