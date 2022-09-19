@@ -17,18 +17,26 @@ def remove_global_clusters():
     print(response)
     for i in response['GlobalClusters']:
         if status.lower() =='delete':
-            if i['Status'] == 'available':
-                response = client.remove_from_global_cluster(
-                    GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
+            response = client.remove_from_global_cluster(
+                    GlobalClusterIdentifier='GlobalClusterIdentifier',
                     DbClusterIdentifier='arn:aws:rds:ca-central-1:760451896171:cluster:db-global-cluster-1'
-                )                   
-                print('Removing DB cluster {0}'.format(i['DbClusterIdentifier']))
-            elif i['Status'] == 'starting' or i['Status'] == 'stopping':
-                print("It is in starting or stopping mode")
-                sys.exit(1)
-            else :
-                print('Wrong status')
-                sys.exit(1)
+                )
+            print(response)
+            
+#             if i['Status'] == 'available':
+#                 response = client.remove_from_global_cluster(
+#                     GlobalClusterIdentifier=i['GlobalClusterIdentifier'],
+#                     DbClusterIdentifier='arn:aws:rds:ca-central-1:760451896171:cluster:db-global-cluster-1'
+#                 )
+#                 print("DB".format())
+#                 print('Removing DB cluster {0}'.format(i['DbClusterIdentifier']))\
+
+#             elif i['Status'] == 'starting' or i['Status'] == 'stopping':
+#                 print("It is in starting or stopping mode")
+#                 sys.exit(1)
+#             else :
+#                 print('Wrong status')
+#                 sys.exit(1)
                 
 # Deleting RDS Instance inside the cluster
     while n > 0:
