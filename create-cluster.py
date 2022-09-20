@@ -20,7 +20,8 @@ def recreate_global_cluster():
         EngineVersion='5.7.mysql_aurora.2.10.2',
         Port=3306,
         StorageEncrypted=True,
-        KmsKeyId='49c0c0b0-6e8a-4150-9d40-ed8f1385b1bd',
+#         KmsKeyId='49c0c0b0-6e8a-4150-9d40-ed8f1385b1bd',
+        KmsKeyId='e60aeaad-558e-4025-a2e0-485dfb36d2e5',
 #        KmsKeyId='dfc76317-d847-4a42-b8c7-1c17ffadde02',
         EnableCloudwatchLogsExports=['general'],
         EngineMode='provisioned',
@@ -35,7 +36,7 @@ def recreate_global_cluster():
     waiter.wait(
         DBClusterIdentifier=db_clu,
         WaiterConfig={
-            'Delay': 1200,   #80 mins
+            'Delay': 2000,   #80 mins
             'MaxAttempts': 2
         }
     )
