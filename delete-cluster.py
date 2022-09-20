@@ -55,7 +55,7 @@ def remove_global_clusters():
             DBInstanceIdentifier=list_inst,
             WaiterConfig={
                 'Delay': 180,
-                'MaxAttempts': 2
+                'MaxAttempts': 3
             }
         )                
         waiter = client.get_waiter('db_cluster_available')
@@ -63,7 +63,7 @@ def remove_global_clusters():
             DBClusterIdentifier=db_clu,
             WaiterConfig={
                 'Delay': 180,   #3 mins
-                'MaxAttempts': 2
+                'MaxAttempts': 3
             }
         )
 
