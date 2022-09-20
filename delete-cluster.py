@@ -49,6 +49,7 @@ def remove_global_clusters():
                     SkipFinalSnapshot=True
                 )
                 print('Deleting DB instance {0}'.format(j['DBInstanceIdentifier']))
+        n = 0
     
         waiter = client.get_waiter('db_instance_deleted')
         waiter.wait(
@@ -66,8 +67,6 @@ def remove_global_clusters():
                 'MaxAttempts': 3
             }
         )
-
-        n = 0
 
 
     # Deleting RDS DB cluster(after it has been removed from global database)
